@@ -12,6 +12,7 @@ namespace csharp
         private const string RandomItemName = "foo";
         private const string AgedBrieItemName = "Aged Brie";
         private const string SulfurasItemName = "Sulfuras, Hand of Ragnaros";
+        private const string BackstagePassItemName = "Backstage passes to a TAFKAL80ETC concert";
 
         [SetUp]
         public void Setup()
@@ -136,6 +137,53 @@ namespace csharp
             _app.UpdateQuality();
 
             Assert.AreEqual(10, _items[0].Quality);
+        }
+
+        [Test]
+        public void BeforeTenDaysBackstagePassQualityIncreasesSimple()
+        {
+            var item = new Item { Name = BackstagePassItemName, SellIn = 11, Quality = 10 };
+            _items.Add(item);
+            _app = new GildedRose(_items);
+
+            _app.UpdateQuality();
+
+            Assert.AreEqual(11, _items[0].Quality);
+        }
+        [Test]
+        public void TenDaysOrLessBackstagePassQualityIncreasesDouble()
+        {
+            var item = new Item { Name = BackstagePassItemName, SellIn = 10, Quality = 10 };
+            _items.Add(item);
+            _app = new GildedRose(_items);
+
+            _app.UpdateQuality();
+
+            Assert.AreEqual(12, _items[0].Quality);
+        }
+
+        [Test]
+        public void FiveDaysOrLessBackstagePassQualityIncreasesTriple()
+        {
+            var item = new Item { Name = BackstagePassItemName, SellIn = 5, Quality = 10 };
+            _items.Add(item);
+            _app = new GildedRose(_items);
+
+            _app.UpdateQuality();
+
+            Assert.AreEqual(13, _items[0].Quality);
+        }
+
+        [Test]
+        public void ZeroDaysBackstagePassQualityDrops()
+        {
+            var item = new Item { Name = BackstagePassItemName, SellIn = 0, Quality = 10 };
+            _items.Add(item);
+            _app = new GildedRose(_items);
+
+            _app.UpdateQuality();
+
+            Assert.AreEqual(0, _items[0].Quality);
         }
     }
 }
