@@ -10,7 +10,8 @@ namespace csharp
         private GildedRose _app;
 
         private const string RandomItemName = "foo";
-        private const string AgedBrieItemName = "AgedBrie";
+        private const string AgedBrieItemName = "Aged Brie";
+        private const string SulfurasItemName = "Sulfuras, Hand of Ragnaros";
 
         [SetUp]
         public void Setup()
@@ -99,6 +100,42 @@ namespace csharp
             _app.UpdateQuality();
 
             Assert.AreEqual(2, _items[0].Quality);
+        }
+
+        [Test]
+        public void QualityIsNeverMoreThanFifty()
+        {
+            var item = new Item { Name = AgedBrieItemName, SellIn = 0, Quality = 50 };
+            _items.Add(item);
+            _app = new GildedRose(_items);
+
+            _app.UpdateQuality();
+
+            Assert.AreEqual(50, _items[0].Quality);
+        }
+
+        [Test]
+        public void SulfurasQualityIsNeverDecreased()
+        {
+            var item = new Item { Name = SulfurasItemName, SellIn = 0, Quality = 10 };
+            _items.Add(item);
+            _app = new GildedRose(_items);
+
+            _app.UpdateQuality();
+
+            Assert.AreEqual(10, _items[0].Quality);
+        }
+
+        [Test]
+        public void SulfurasSellInIsNeverDecreased()
+        {
+            var item = new Item { Name = SulfurasItemName, SellIn = 10, Quality = 10 };
+            _items.Add(item);
+            _app = new GildedRose(_items);
+
+            _app.UpdateQuality();
+
+            Assert.AreEqual(10, _items[0].Quality);
         }
     }
 }
