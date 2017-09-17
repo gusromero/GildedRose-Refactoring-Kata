@@ -150,16 +150,18 @@ namespace csharp
 
             Assert.AreEqual(11, _items[0].Quality);
         }
-        [Test]
-        public void TenDaysOrLessBackstagePassQualityIncreasesDouble()
+        [TestCase(10, 10, 12)]
+        [TestCase(9, 10, 12)]
+        [TestCase(6, 10, 12)]
+        public void TenDaysOrLessBackstagePassQualityIncreasesDouble(int sellIn, int quality, int expectedQuality)
         {
-            var item = new Item { Name = BackstagePassItemName, SellIn = 10, Quality = 10 };
+            var item = new Item { Name = BackstagePassItemName, SellIn = sellIn, Quality = quality };
             _items.Add(item);
             _app = new GildedRose(_items);
 
             _app.UpdateQuality();
 
-            Assert.AreEqual(12, _items[0].Quality);
+            Assert.AreEqual(expectedQuality, _items[0].Quality);
         }
 
         [Test]
