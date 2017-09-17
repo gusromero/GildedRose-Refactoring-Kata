@@ -4,6 +4,11 @@ namespace csharp
 {
     public class GildedRose
     {
+        private const string AgedBrieItemName = "Aged Brie";
+        private const string SulfurasItemName = "Sulfuras, Hand of Ragnaros";
+        private const string BackstagePassItemName = "Backstage passes to a TAFKAL80ETC concert";
+
+
         IList<Item> Items;
         public GildedRose(IList<Item> Items)
         {
@@ -20,14 +25,14 @@ namespace csharp
 
         private void UpdateQualitySingleItem(Item item)
         {
-            if (item.Name == "Sulfuras, Hand of Ragnaros")
+            if (item.Name == SulfurasItemName)
             {
                 return;
             }
 
             UpdateSellInSingleItem(item);
 
-            if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
+            if (item.Name != AgedBrieItemName && item.Name != BackstagePassItemName)
             {
                 if (item.Quality > 0)
                 {
@@ -40,7 +45,7 @@ namespace csharp
                 {
                     item.Quality = item.Quality + 1;
 
-                    if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                    if (item.Name == BackstagePassItemName)
                     {
                         if (item.SellIn < 10)
                         {
@@ -63,9 +68,9 @@ namespace csharp
 
             if (item.SellIn < 0)
             {
-                if (item.Name != "Aged Brie")
+                if (item.Name != AgedBrieItemName)
                 {
-                    if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
+                    if (item.Name != BackstagePassItemName)
                     {
                         if (item.Quality > 0)
                         {
@@ -87,6 +92,7 @@ namespace csharp
             }
         }
 
+        private void UpdateSellInSingleItem(Item item)
         {
             item.SellIn = item.SellIn - 1;
         }
