@@ -25,7 +25,7 @@ namespace csharp
                 return;
             }
 
-            item.SellIn = item.SellIn - 1;
+            UpdateSellInSingleItem(item);
 
             if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
             {
@@ -85,6 +85,10 @@ namespace csharp
                     }
                 }
             }
+        }
+
+        {
+            item.SellIn = item.SellIn - 1;
         }
     }
 }
