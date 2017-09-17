@@ -20,7 +20,7 @@ namespace csharp
             _items = new List<Item> { };
         }
         [Test]
-        public void foo()
+        public void Foo()
         {
             var item = new Item { Name = RandomItemName, SellIn = 0, Quality = 0 } ;
             _items.Add(item);
