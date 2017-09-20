@@ -34,7 +34,6 @@ namespace csharp
                 return;
             }
 
-
             if (!ItemIsAgedBrie(item) && !ItemIsBackstagePass(item))
             {
                 IncrementQualityDelimited(item, -1);
@@ -85,12 +84,10 @@ namespace csharp
 
         private void UpdateSellInSingleItem(Item item)
         {
-            if (ItemIsSulfuras(item))
+            if (!ItemIsSulfuras(item))
             {
-                return;
+                item.SellIn = item.SellIn - 1;
             }
-
-            item.SellIn = item.SellIn - 1;
         }
 
         private bool ItemIsSulfuras(Item item)
