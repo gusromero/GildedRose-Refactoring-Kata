@@ -22,39 +22,34 @@ namespace csharp
         {
             foreach (Item item in Items)
             {
-                UpdateSellInSingleItem(item);
-                UpdateQualitySingleItem(item);
+                if (!ItemIsSulfuras(item))
+                {
+                    UpdateSellInSingleItem(item);
+                    UpdateQualitySingleItem(item);
+                }
             }
         }
 
         private void UpdateQualitySingleItem(Item item)
         {
-            if (ItemIsSulfuras(item))
-            {
-                return;
-            }
-
             if (!ItemIsAgedBrie(item) && !ItemIsBackstagePass(item))
             {
                 IncrementQualityDelimited(item, -1);
             }
             else
             {
-                if (item.Quality < 50)
+                IncrementQualityDelimited(item, 1);
+
+                if (ItemIsBackstagePass(item))
                 {
-                    item.Quality = item.Quality + 1;
-
-                    if (ItemIsBackstagePass(item))
+                    if (item.SellIn < 10)
                     {
-                        if (item.SellIn < 10)
-                        {
-                            IncrementQualityDelimited(item, 1);
-                        }
+                        IncrementQualityDelimited(item, 1);
+                    }
 
-                        if (item.SellIn < 5)
-                        {
-                            IncrementQualityDelimited(item, 1);
-                        }
+                    if (item.SellIn < 5)
+                    {
+                        IncrementQualityDelimited(item, 1);
                     }
                 }
             }
@@ -84,10 +79,7 @@ namespace csharp
 
         private void UpdateSellInSingleItem(Item item)
         {
-            if (!ItemIsSulfuras(item))
-            {
-                item.SellIn = item.SellIn - 1;
-            }
+            item.SellIn = item.SellIn - 1;
         }
 
         private bool ItemIsSulfuras(Item item)
