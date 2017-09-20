@@ -136,7 +136,7 @@ namespace csharp
 
             _app.UpdateQuality();
 
-            Assert.AreEqual(10, _items[0].Quality);
+            Assert.AreEqual(10, _items[0].SellIn);
         }
 
         [Test]
