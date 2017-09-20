@@ -19,6 +19,7 @@ namespace csharp
         {
             foreach (Item item in Items)
             {
+                UpdateSellInSingleItem(item);
                 UpdateQualitySingleItem(item);
             }
         }
@@ -30,7 +31,6 @@ namespace csharp
                 return;
             }
 
-            UpdateSellInSingleItem(item);
 
             if (item.Name != AgedBrieItemName && item.Name != BackstagePassItemName)
             {
@@ -94,6 +94,11 @@ namespace csharp
 
         private void UpdateSellInSingleItem(Item item)
         {
+            if (item.Name == SulfurasItemName)
+            {
+                return;
+            }
+
             item.SellIn = item.SellIn - 1;
         }
     }
