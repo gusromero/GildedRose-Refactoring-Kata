@@ -26,13 +26,13 @@ namespace csharp
 
         private void UpdateQualitySingleItem(Item item)
         {
-            if (item.Name == SulfurasItemName)
+            if (ItemIsSulfuras(item))
             {
                 return;
             }
 
 
-            if (item.Name != AgedBrieItemName && item.Name != BackstagePassItemName)
+            if (!ItemIsAgedBrie(item) && !ItemIsBackstagePass(item))
             {
                 if (item.Quality > 0)
                 {
@@ -45,7 +45,7 @@ namespace csharp
                 {
                     item.Quality = item.Quality + 1;
 
-                    if (item.Name == BackstagePassItemName)
+                    if (ItemIsBackstagePass(item))
                     {
                         if (item.SellIn < 10)
                         {
@@ -68,9 +68,9 @@ namespace csharp
 
             if (item.SellIn < 0)
             {
-                if (item.Name != AgedBrieItemName)
+                if (!ItemIsAgedBrie(item))
                 {
-                    if (item.Name != BackstagePassItemName)
+                    if (!ItemIsBackstagePass(item))
                     {
                         if (item.Quality > 0)
                         {
@@ -92,14 +92,33 @@ namespace csharp
             }
         }
 
+
+
+
         private void UpdateSellInSingleItem(Item item)
         {
-            if (item.Name == SulfurasItemName)
+            if (ItemIsSulfuras(item))
             {
                 return;
             }
 
             item.SellIn = item.SellIn - 1;
         }
+
+        private bool ItemIsSulfuras(Item item)
+        {
+            return item.Name == SulfurasItemName;
+        }
+
+        private bool ItemIsAgedBrie(Item item)
+        {
+            return item.Name == AgedBrieItemName;
+        }
+
+        private bool ItemIsBackstagePass(Item item)
+        {
+            return item.Name == BackstagePassItemName;
+        }
+
     }
 }
