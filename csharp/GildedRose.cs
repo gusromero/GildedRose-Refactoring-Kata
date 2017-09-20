@@ -9,6 +9,8 @@ namespace csharp
         private const string SulfurasItemName = "Sulfuras, Hand of Ragnaros";
         private const string BackstagePassItemName = "Backstage passes to a TAFKAL80ETC concert";
 
+        private const int MinQuality = 0;
+        private const int MaxQuality = 50;
 
         IList<Item> Items;
         public GildedRose(IList<Item> Items)
@@ -108,7 +110,7 @@ namespace csharp
 
         private void IncrementQualityDelimited(Item item, int delta)
         {
-            var newQuality = Math.Max(0, Math.Min(50, item.Quality + delta));
+            var newQuality = Math.Max(MinQuality, Math.Min(MaxQuality, item.Quality + delta));
             item.Quality = newQuality;
         }
 
