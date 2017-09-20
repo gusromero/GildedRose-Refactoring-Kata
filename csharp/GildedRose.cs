@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace csharp
 {
@@ -34,10 +35,7 @@ namespace csharp
 
             if (!ItemIsAgedBrie(item) && !ItemIsBackstagePass(item))
             {
-                if (item.Quality > 0)
-                {
-                    item.Quality = item.Quality - 1;
-                }
+                IncrementQualityDelimited(item, -1);
             }
             else
             {
@@ -49,18 +47,12 @@ namespace csharp
                     {
                         if (item.SellIn < 10)
                         {
-                            if (item.Quality < 50)
-                            {
-                                item.Quality = item.Quality + 1;
-                            }
+                            IncrementQualityDelimited(item, 1);
                         }
 
                         if (item.SellIn < 5)
                         {
-                            if (item.Quality < 50)
-                            {
-                                item.Quality = item.Quality + 1;
-                            }
+                            IncrementQualityDelimited(item, 1);
                         }
                     }
                 }
@@ -72,10 +64,7 @@ namespace csharp
                 {
                     if (!ItemIsBackstagePass(item))
                     {
-                        if (item.Quality > 0)
-                        {
-                            item.Quality = item.Quality - 1;
-                        }
+                        IncrementQualityDelimited(item, -1);
                     }
                     else
                     {
@@ -84,10 +73,7 @@ namespace csharp
                 }
                 else
                 {
-                    if (item.Quality < 50)
-                    {
-                        item.Quality = item.Quality + 1;
-                    }
+                    IncrementQualityDelimited(item, 1);
                 }
             }
         }
@@ -118,6 +104,12 @@ namespace csharp
         private bool ItemIsBackstagePass(Item item)
         {
             return item.Name == BackstagePassItemName;
+        }
+
+        private void IncrementQualityDelimited(Item item, int delta)
+        {
+            var newQuality = Math.Max(0, Math.Min(50, item.Quality + delta));
+            item.Quality = newQuality;
         }
 
     }
