@@ -54,7 +54,7 @@ namespace csharp
                 }
             }
 
-            if (item.SellIn < 0)
+            if (ItemHasExpired(item))
             {
                 if (!ItemIsAgedBrie(item))
                 {
@@ -74,7 +74,10 @@ namespace csharp
             }
         }
 
-
+        private bool ItemHasExpired(Item item)
+        {
+            return item.SellIn < 0;
+        }
 
 
         private void UpdateSellInSingleItem(Item item)
