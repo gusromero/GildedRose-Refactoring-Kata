@@ -13,14 +13,15 @@ namespace csharp
         private const int MaxQuality = 50;
 
         IList<Item> Items;
-        public GildedRose(IList<Item> Items)
+
+        public GildedRose(IList<Item> items)
         {
-            this.Items = Items;
+            this.Items = items;
         }
 
         public void UpdateQuality()
         {
-            foreach (Item item in Items)
+            foreach (var item in Items)
             {
                 if (!ItemIsSulfuras(item))
                 {
@@ -74,15 +75,15 @@ namespace csharp
             }
         }
 
-        private bool ItemHasExpired(Item item)
-        {
-            return item.SellIn < 0;
-        }
-
 
         private void UpdateSellInSingleItem(Item item)
         {
             item.SellIn = item.SellIn - 1;
+        }
+
+        private bool ItemHasExpired(Item item)
+        {
+            return item.SellIn < 0;
         }
 
         private bool ItemIsSulfuras(Item item)
